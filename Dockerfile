@@ -35,12 +35,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF \
   && apt-get update \
   && apt-get install -y mesos
 
-# Disable Zookeeper & Mesos-Master
-RUN service zookeeper stop \
-  && sh -c "echo manual > /etc/init/zookeeper.override" \
-  && service mesos-master stop \
-  && sh -c "echo manual > /etc/init/mesos-master.override"
-
 # Apache Spark
 WORKDIR /usr/local
 RUN wget http://ftp.riken.jp/net/apache/spark/spark-1.4.1/spark-1.4.1-bin-hadoop2.4.tgz \

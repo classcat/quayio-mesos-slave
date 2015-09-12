@@ -49,10 +49,16 @@ function put_public_key() {
 ### Mesos-Slave ###
 ###################
 
-function proc_mesos_slave () {
+function proc_mesos () {
   echo "zk://${MESOS_MASTER_IP}:2181/mesos" > /etc/mesos/zk
 
   service mesos-slave restart
+
+  sh -c "echo manual > /etc/init/zookeeper.override"
+  sh -c "echo manual > /etc/init/mesos-master.override"
+
+  service zookeeper stop
+  service mesos-master stop
 }
 
 
@@ -97,7 +103,7 @@ EOF
 init 
 change_root_password
 put_public_key
-proc_mesos_slave
+proc_mesos
 #proc_spark
 #proc_supervisor
 
