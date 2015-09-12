@@ -37,7 +37,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF \
 
 # Disable Zookeeper & Mesos-Master
 RUN service zookeeper stop \
-  && sh -c "echo manual > /etc/init/zookeeper.override"
+  && sh -c "echo manual > /etc/init/zookeeper.override" \
   && service mesos-master stop \
   && sh -c "echo manual > /etc/init/mesos-master.override"
 
